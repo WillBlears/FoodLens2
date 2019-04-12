@@ -8,12 +8,10 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,35 +19,25 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.common.FirebaseMLException;
 import com.google.firebase.ml.common.modeldownload.FirebaseLocalModel;
-import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions;
 import com.google.firebase.ml.common.modeldownload.FirebaseModelManager;
-import com.google.firebase.ml.common.modeldownload.FirebaseRemoteModel;
 import com.google.firebase.ml.custom.FirebaseModelDataType;
 import com.google.firebase.ml.custom.FirebaseModelInputOutputOptions;
 import com.google.firebase.ml.custom.FirebaseModelInputs;
 import com.google.firebase.ml.custom.FirebaseModelInterpreter;
 import com.google.firebase.ml.custom.FirebaseModelOptions;
 import com.google.firebase.ml.custom.FirebaseModelOutputs;
-
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -57,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
     ImageButton take_photo;
     ImageView photo;
-
     TextView result1;
     TextView result2;
     TextView result3;
@@ -67,15 +54,11 @@ public class MainActivity extends AppCompatActivity {
     CheckBox vegan;
     CheckBox vegetarian;
     CheckBox balanced;
-    CheckBox paleo;
-    CheckBox gluten_free;
-    CheckBox dairy_free;
-    CheckBox nut_free;
-    CheckBox high_fiber;
     CheckBox high_protein;
     CheckBox low_carb;
+    CheckBox low_fat;
     CheckBox low_sugar;
-    CheckBox sugar_free;
+    CheckBox nut_free;
 
     static final int REQUEST_TAKE_PHOTO = 1;
     String currentPhotoPath;
@@ -102,24 +85,46 @@ public class MainActivity extends AppCompatActivity {
         vegan = (CheckBox) findViewById(R.id.checkBox);
         vegetarian = (CheckBox) findViewById(R.id.checkBox1);
         balanced = (CheckBox) findViewById(R.id.checkBox2);
-        paleo = (CheckBox) findViewById(R.id.checkBox3);
-        gluten_free = (CheckBox) findViewById(R.id.checkBox4);
-        dairy_free = (CheckBox) findViewById(R.id.checkBox5);
-        nut_free = (CheckBox) findViewById(R.id.checkBox6);
-        high_fiber = (CheckBox) findViewById(R.id.checkBox7);
-        high_protein = (CheckBox) findViewById(R.id.checkBox8);
-        low_carb = (CheckBox) findViewById(R.id.checkBox9);
-        low_sugar = (CheckBox) findViewById(R.id.checkBox10);
-        sugar_free = (CheckBox) findViewById(R.id.checkBox11);
+        high_protein = (CheckBox) findViewById(R.id.checkBox3);
+        low_carb = (CheckBox) findViewById(R.id.checkBox4);
+        low_fat = (CheckBox) findViewById(R.id.checkBox5);
+        low_sugar = (CheckBox) findViewById(R.id.checkBox6);
+        nut_free = (CheckBox) findViewById(R.id.checkBox7);
 
         top_5_prob = new float[5];
         top_5_name = new String[5];
 
-        photo.setImageResource(R.drawable.default_image_thumbnail);
+        photo.setBackgroundColor(Color.rgb(230, 230, 230));
 
         take_photo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 dispatchTakePictureIntent();
+            }
+        });
+
+        result1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                launch_search(top_5_name[0]);
+            }
+        });
+        result2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                launch_search(top_5_name[1]);
+            }
+        });
+        result3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                launch_search(top_5_name[2]);
+            }
+        });
+        result4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                launch_search(top_5_name[3]);
+            }
+        });
+        result5.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                launch_search(top_5_name[4]);
             }
         });
     }
@@ -129,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == Activity.RESULT_OK) {
                 Bitmap bitmap = getBitmap();
-                clear_result_textviews();
+                thinking_textviews();
                 photo.setImageBitmap(resizeBitmap(bitmap));
                 firebase_setup();
                 get_top_5(bitmap);
@@ -332,18 +337,32 @@ public class MainActivity extends AppCompatActivity {
 
     protected void set_result_textviews(){
         DecimalFormat df = new DecimalFormat("#.##");
-        result1.setText(top_5_name[0] + " " + String.valueOf(df.format(top_5_prob[0]*100)) + "%");
-        result2.setText(top_5_name[1] + " " + String.valueOf(df.format(top_5_prob[1]*100)) + "%");
-        result3.setText(top_5_name[2] + " " + String.valueOf(df.format(top_5_prob[2]*100)) + "%");
-        result4.setText(top_5_name[3] + " " + String.valueOf(df.format(top_5_prob[3]*100)) + "%");
-        result5.setText(top_5_name[4] + " " + String.valueOf(df.format(top_5_prob[4]*100)) + "%");
+        result1.setText(top_5_name[0] + "? - " + String.valueOf(df.format(top_5_prob[0]*100)) + "%");
+        result2.setText(top_5_name[1] + "? - " + String.valueOf(df.format(top_5_prob[1]*100)) + "%");
+        result3.setText(top_5_name[2] + "? - " + String.valueOf(df.format(top_5_prob[2]*100)) + "%");
+        result4.setText(top_5_name[3] + "? - " + String.valueOf(df.format(top_5_prob[3]*100)) + "%");
+        result5.setText(top_5_name[4] + "? - " + String.valueOf(df.format(top_5_prob[4]*100)) + "%");
     }
 
-    protected void clear_result_textviews(){
-        result1.setText("");
+    protected void thinking_textviews(){
+        result1.setText("thinking...");
         result2.setText("");
         result3.setText("");
         result4.setText("");
         result5.setText("");
+    }
+
+    protected void launch_search(String query){
+        Intent query_intent = new Intent(MainActivity.this, Results.class);
+        query_intent.putExtra("query", query);
+        query_intent.putExtra("vegan", vegan.isChecked());
+        query_intent.putExtra("vegetarian", vegetarian.isChecked());
+        query_intent.putExtra("balanced", balanced.isChecked());
+        query_intent.putExtra("nut_free", nut_free.isChecked());
+        query_intent.putExtra("high_protein", high_protein.isChecked());
+        query_intent.putExtra("low_carb", low_carb.isChecked());
+        query_intent.putExtra("low_sugar", low_sugar.isChecked());
+        query_intent.putExtra("sugar_free", low_fat.isChecked());
+        startActivity(query_intent);
     }
 }
