@@ -10,15 +10,25 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.common.FirebaseMLException;
@@ -30,6 +40,7 @@ import com.google.firebase.ml.custom.FirebaseModelInputs;
 import com.google.firebase.ml.custom.FirebaseModelInterpreter;
 import com.google.firebase.ml.custom.FirebaseModelOptions;
 import com.google.firebase.ml.custom.FirebaseModelOutputs;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -39,17 +50,21 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.SortedMap;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
+
+import android.graphics.Color;
 
 public class MainActivity extends AppCompatActivity {
 
     ImageButton take_photo;
     ImageView photo;
-    TextView result1;
-    TextView result2;
-    TextView result3;
-    TextView result4;
-    TextView result5;
+    TextView[] NN_results;
+    EditText other_text;
+    RelativeLayout other_container;
+    int selected;
 
     CheckBox vegan;
     CheckBox vegetarian;
@@ -59,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
     CheckBox low_fat;
     CheckBox low_sugar;
     CheckBox nut_free;
+
+    Button search_button;
 
     static final int REQUEST_TAKE_PHOTO = 1;
     String currentPhotoPath;
@@ -76,11 +93,15 @@ public class MainActivity extends AppCompatActivity {
         take_photo = (ImageButton) findViewById(R.id.take_photo);
         photo = (ImageView) findViewById(R.id.photo);
 
-        result1 = (TextView) findViewById(R.id.result1);
-        result2 = (TextView) findViewById(R.id.result2);
-        result3 = (TextView) findViewById(R.id.result3);
-        result4 = (TextView) findViewById(R.id.result4);
-        result5 = (TextView) findViewById(R.id.result5);
+        NN_results = new TextView[5];
+        NN_results[0] = (TextView) findViewById(R.id.result1);
+        NN_results[1] = (TextView) findViewById(R.id.result2);
+        NN_results[2] = (TextView) findViewById(R.id.result3);
+        NN_results[3] = (TextView) findViewById(R.id.result4);
+        NN_results[4] = (TextView) findViewById(R.id.result5);
+        other_text = (EditText) findViewById(R.id.other_text);
+        other_container = (RelativeLayout) findViewById(R.id.other);
+        selected = 0;
 
         vegan = (CheckBox) findViewById(R.id.checkBox);
         vegetarian = (CheckBox) findViewById(R.id.checkBox1);
@@ -91,10 +112,14 @@ public class MainActivity extends AppCompatActivity {
         low_sugar = (CheckBox) findViewById(R.id.checkBox6);
         nut_free = (CheckBox) findViewById(R.id.checkBox7);
 
+        search_button = (Button) findViewById(R.id.search_button);
+
         top_5_prob = new float[5];
         top_5_name = new String[5];
 
         photo.setBackgroundColor(Color.rgb(230, 230, 230));
+
+        firebase_setup();
 
         take_photo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -102,29 +127,60 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        result1.setOnClickListener(new View.OnClickListener() {
+        NN_results[0].setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                launch_search(top_5_name[0]);
+                select_result(0);
             }
         });
-        result2.setOnClickListener(new View.OnClickListener() {
+        NN_results[1].setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                launch_search(top_5_name[1]);
+                select_result(1);
             }
         });
-        result3.setOnClickListener(new View.OnClickListener() {
+        NN_results[2].setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                launch_search(top_5_name[2]);
+                select_result(2);
             }
         });
-        result4.setOnClickListener(new View.OnClickListener() {
+        NN_results[3].setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                launch_search(top_5_name[3]);
+                select_result(3);
             }
         });
-        result5.setOnClickListener(new View.OnClickListener() {
+        NN_results[4].setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                launch_search(top_5_name[4]);
+                select_result(4);
+            }
+        });
+
+        //Other - EditText
+        other_container.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                select_result(5);
+            }
+        });
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            public void afterTextChanged(Editable s) {
+                select_result(5);
+            }
+        };
+        other_text.setText("");
+        other_text.addTextChangedListener(textWatcher);
+
+        search_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (selected > top_5_name.length - 1) {
+                    launch_search(other_text.getText().toString());
+                }
+                launch_search(top_5_name[selected]);
             }
         });
     }
@@ -136,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                 Bitmap bitmap = getBitmap();
                 thinking_textviews();
                 photo.setImageBitmap(resizeBitmap(bitmap));
-                firebase_setup();
+
                 get_top_5(bitmap);
             }
         }
@@ -277,10 +333,10 @@ public class MainActivity extends AppCompatActivity {
         int input_dims = 299;
         int BMH = bitmap.getHeight();
         int BMW = bitmap.getWidth();
-        if(BMH > BMW)
-            bitmap = bitmap.createBitmap(bitmap, 0, (int)((BMH-BMW)/2), BMW, BMW);
+        if (BMH > BMW)
+            bitmap = bitmap.createBitmap(bitmap, 0, (int) ((BMH - BMW) / 2), BMW, BMW);
         else
-            bitmap = bitmap.createBitmap(bitmap, (int)((BMW-BMH)/2), 0, BMH, BMH);
+            bitmap = bitmap.createBitmap(bitmap, (int) ((BMW - BMH) / 2), 0, BMH, BMH);
 
         bitmap = Bitmap.createScaledBitmap(bitmap, input_dims, input_dims, true);
         float[][][][] input = new float[1][input_dims][input_dims][3];
@@ -293,8 +349,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
- //       FirebaseModelInputs inputs = null;
-
+        //       FirebaseModelInputs inputs = null;
         try {
             FirebaseModelInputs inputs = new FirebaseModelInputs.Builder().add(input).build();
 
@@ -311,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
                                             probabilities.put(prob_output[cat], reader.readLine());
                                         }
                                         reader.close();
-                                        for(int i = 0; i < 5; i++){
+                                        for (int i = 0; i < 5; i++) {
                                             float key = probabilities.firstKey();
                                             top_5_prob[i] = key;
                                             top_5_name[i] = probabilities.get(key);
@@ -335,24 +390,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    protected void set_result_textviews(){
+    protected void set_result_textviews() {
         DecimalFormat df = new DecimalFormat("#.##");
-        result1.setText(top_5_name[0] + "? - " + String.valueOf(df.format(top_5_prob[0]*100)) + "%");
-        result2.setText(top_5_name[1] + "? - " + String.valueOf(df.format(top_5_prob[1]*100)) + "%");
-        result3.setText(top_5_name[2] + "? - " + String.valueOf(df.format(top_5_prob[2]*100)) + "%");
-        result4.setText(top_5_name[3] + "? - " + String.valueOf(df.format(top_5_prob[3]*100)) + "%");
-        result5.setText(top_5_name[4] + "? - " + String.valueOf(df.format(top_5_prob[4]*100)) + "%");
+        String a = "    " + top_5_name[0] + "? - " + String.valueOf(df.format(top_5_prob[0] * 100)) + "%    ";
+        String b = "    " + top_5_name[1] + "? - " + String.valueOf(df.format(top_5_prob[1] * 100)) + "%    ";
+        String c = "    " + top_5_name[2] + "? - " + String.valueOf(df.format(top_5_prob[2] * 100)) + "%    ";
+        String d = "    " + top_5_name[3] + "? - " + String.valueOf(df.format(top_5_prob[3] * 100)) + "%    ";
+        String e = "    " + top_5_name[4] + "? - " + String.valueOf(df.format(top_5_prob[4] * 100)) + "%    ";
+
+        NN_results[0].setText(a);
+        NN_results[1].setText(b);
+        NN_results[2].setText(c);
+        NN_results[3].setText(d);
+        NN_results[4].setText(e);
+        other_text.setText("Other...");
+        other_container.setBackgroundColor(Color.parseColor("#A6FFFFFF"));
     }
 
-    protected void thinking_textviews(){
-        result1.setText("thinking...");
-        result2.setText("");
-        result3.setText("");
-        result4.setText("");
-        result5.setText("");
+    protected void thinking_textviews() {
+        NN_results[0].setText("    thinking...    ");
+        NN_results[1].setText("");
+        NN_results[2].setText("");
+        NN_results[3].setText("");
+        NN_results[4].setText("");
+        other_text.setText("");
+        other_container.setBackgroundColor(Color.TRANSPARENT);
     }
 
-    protected void launch_search(String query){
+    protected void launch_search(String query) {
+        query = query.replaceAll("[^a-zA-Z]", "").toLowerCase();
         Intent query_intent = new Intent(MainActivity.this, Results.class);
         query_intent.putExtra("query", query);
         query_intent.putExtra("vegan", vegan.isChecked());
@@ -361,8 +427,21 @@ public class MainActivity extends AppCompatActivity {
         query_intent.putExtra("nut_free", nut_free.isChecked());
         query_intent.putExtra("high_protein", high_protein.isChecked());
         query_intent.putExtra("low_carb", low_carb.isChecked());
+        query_intent.putExtra("low_fat", low_fat.isChecked());
         query_intent.putExtra("low_sugar", low_sugar.isChecked());
-        query_intent.putExtra("sugar_free", low_fat.isChecked());
         startActivity(query_intent);
+    }
+
+    protected void select_result(int result) {
+        for (int i = 0; i < NN_results.length; i++) {
+            NN_results[i].setBackgroundColor(Color.parseColor("#A6FFFFFF"));
+        }
+        if (result == 5)
+            other_container.setBackgroundColor(Color.parseColor("#A6008000"));
+        else {
+            other_container.setBackgroundColor(Color.parseColor("#A6FFFFFF"));
+            NN_results[result].setBackgroundColor(Color.parseColor("#A6008000"));
+        }
+        selected = result;
     }
 }

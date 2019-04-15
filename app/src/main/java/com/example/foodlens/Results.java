@@ -39,15 +39,11 @@ public class Results extends AppCompatActivity {
         Boolean vegan = getIntent().getExtras().getBoolean("vegan");
         Boolean vegetarian = getIntent().getExtras().getBoolean("vegetarian");
         Boolean balanced = getIntent().getExtras().getBoolean("balanced");
-        Boolean paleo = getIntent().getExtras().getBoolean("paleo");
-        Boolean gluten_free = getIntent().getExtras().getBoolean("gluten_free");
-        Boolean dairy_free = getIntent().getExtras().getBoolean("dairy_free");
         Boolean nut_free = getIntent().getExtras().getBoolean("nut_free");
-        Boolean high_fiber = getIntent().getExtras().getBoolean("high_fiber");
+        Boolean low_fat = getIntent().getExtras().getBoolean("low_fat");
         Boolean high_protein = getIntent().getExtras().getBoolean("high_protein");
         Boolean low_carb = getIntent().getExtras().getBoolean("low_carb");
         Boolean low_sugar = getIntent().getExtras().getBoolean("low_sugar");
-        Boolean sugar_free = getIntent().getExtras().getBoolean("sugar_free");
         final ArrayList<String> health_labels = new ArrayList<String>();
 
         final int num_results = 4;
@@ -121,7 +117,7 @@ public class Results extends AppCompatActivity {
             url = url + "&diet=balanced";
             health_labels.add("balanced");
         }
-        if (high_fiber) {
+        if (low_fat) {
             url = url + "&diet=low-fat";
             health_labels.add("low-fat");
         }
