@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     EditText other_text;
     RelativeLayout other_container;
     int selected;
-    
+
     CheckBox vegan;
     CheckBox vegetarian;
     CheckBox balanced;
@@ -98,8 +100,12 @@ public class MainActivity extends AppCompatActivity {
 
         take_photo = (ImageButton) findViewById(R.id.take_photo);
         photo = (ImageView) findViewById(R.id.photo);
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        photo.getLayoutParams().height = (int)(dm.heightPixels*0.43);
+        photo.getLayoutParams().width = dm.widthPixels;
         photo.setImageDrawable(getResources().getDrawable(R.drawable.launch_pic));
 
+        LinearLayout results = (LinearLayout) findViewById(R.id.results);
         NN_results = new TextView[5];
         NN_results[0] = (TextView) findViewById(R.id.result1);
         NN_results[1] = (TextView) findViewById(R.id.result2);
@@ -108,8 +114,13 @@ public class MainActivity extends AppCompatActivity {
         NN_results[4] = (TextView) findViewById(R.id.result5);
         other_text = (EditText) findViewById(R.id.other_text);
         other_container = (RelativeLayout) findViewById(R.id.other);
+        results.getLayoutParams().height = photo.getLayoutParams().height;
         other_text.bringToFront();
         selected = 0;
+        int result_bar_height = (int)(photo.getLayoutParams().height - (5*6))/6;
+        for(int i = 0; i < NN_results.length; i++)
+            NN_results[i].getLayoutParams().height = result_bar_height;
+        other_container.getLayoutParams().height = result_bar_height;
 
         vegan = (CheckBox) findViewById(R.id.checkBox);
         vegetarian = (CheckBox) findViewById(R.id.checkBox1);
