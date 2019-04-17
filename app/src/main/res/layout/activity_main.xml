@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:fontFamily="@font/domine_regular">
 
     <ImageView
         android:id="@+id/photo"
@@ -38,76 +39,86 @@
         android:id="@+id/result1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:height="42dp"
+        android:height="45dp"
         android:background="#A6FFFFFF"
+        android:textColor="#505050"
         android:clickable="true"
         android:gravity="center_vertical"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        android:fontFamily="@font/robotomono_regular"/>
 
     <TextView
         android:id="@+id/result2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:height="42dp"
+        android:layout_marginTop="6dp"
+        android:height="45dp"
         android:background="#A6FFFFFF"
+        android:textColor="#505050"
         android:clickable="true"
         android:gravity="center_vertical"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/result1"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        android:fontFamily="@font/robotomono_regular"/>
 
     <TextView
         android:id="@+id/result3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9.5dp"
-        android:height="42dp"
+        android:layout_marginTop="6dp"
+        android:height="45dp"
         android:background="#A6FFFFFF"
+        android:textColor="#505050"
         android:clickable="true"
         android:gravity="center_vertical"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/result2"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        android:fontFamily="@font/robotomono_regular"/>
 
     <TextView
         android:id="@+id/result4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9.5dp"
-        android:height="42dp"
+        android:layout_marginTop="6dp"
+        android:height="45dp"
         android:background="#A6FFFFFF"
+        android:textColor="#505050"
         android:clickable="true"
         android:gravity="center_vertical"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/result3"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        android:fontFamily="@font/robotomono_regular"/>
 
     <TextView
         android:id="@+id/result5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9.5dp"
-        android:height="42dp"
+        android:layout_marginTop="6dp"
+        android:height="45dp"
         android:background="#A6FFFFFF"
+        android:textColor="#505050"
         android:clickable="true"
         android:gravity="center_vertical"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/result4"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        android:fontFamily="@font/robotomono_regular"/>
 
     <RelativeLayout
         android:id="@+id/other"
         android:layout_width="wrap_content"
-        android:layout_marginTop="9.5dp"
-        android:layout_height="42dp"
+        android:layout_marginTop="6dp"
+        android:layout_height="45dp"
         android:background="@null"
         android:gravity="left"
         android:clickable="true"
@@ -117,13 +128,14 @@
             android:id="@+id/other_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
             android:gravity="center_vertical"
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
             android:background="@null"
-            android:textColor="#757575"/>
+            android:textColor="#505050"
+            android:fontFamily="@font/robotomono_regular"/>
     </RelativeLayout>
 
     <LinearLayout

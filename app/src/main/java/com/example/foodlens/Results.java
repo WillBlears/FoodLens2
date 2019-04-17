@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -46,7 +47,9 @@ public class Results extends AppCompatActivity {
         Boolean low_sugar = getIntent().getExtras().getBoolean("low_sugar");
         final ArrayList<String> health_labels = new ArrayList<String>();
 
-        final int num_results = 4;
+        ((CollapsingToolbarLayout)findViewById(R.id.toolbar_layout)).setTitle(query);
+
+        final int num_results = 10;
         final int num_text_views = 6;
 
         final RequestQueue[] queue = new RequestQueue[1];
@@ -91,12 +94,66 @@ public class Results extends AppCompatActivity {
         all_images[3] = (ImageView) this.findViewById(R.id.image3);
         all_relatives[3] = (RelativeLayout) this.findViewById(R.id.relative3);
 
+        all_text[0][4] = (TextView) this.findViewById(R.id.textView16);
+        all_text[1][4] = (TextView) this.findViewById(R.id.textView17);
+        all_text[2][4] = (TextView) this.findViewById(R.id.textView18);
+        all_text[3][4] = (TextView) this.findViewById(R.id.textView19);
+        all_cals[4] = (TextView) this.findViewById(R.id.calories4);
+        all_images[4] = (ImageView) this.findViewById(R.id.image4);
+        all_relatives[4] = (RelativeLayout) this.findViewById(R.id.relative4);
+
+        all_text[0][5] = (TextView) this.findViewById(R.id.textView20);
+        all_text[1][5] = (TextView) this.findViewById(R.id.textView21);
+        all_text[2][5] = (TextView) this.findViewById(R.id.textView22);
+        all_text[3][5] = (TextView) this.findViewById(R.id.textView23);
+        all_cals[5] = (TextView) this.findViewById(R.id.calories5);
+        all_images[5] = (ImageView) this.findViewById(R.id.image5);
+        all_relatives[5] = (RelativeLayout) this.findViewById(R.id.relative5);
+
+        all_text[0][6] = (TextView) this.findViewById(R.id.textView24);
+        all_text[1][6] = (TextView) this.findViewById(R.id.textView25);
+        all_text[2][6] = (TextView) this.findViewById(R.id.textView26);
+        all_text[3][6] = (TextView) this.findViewById(R.id.textView27);
+        all_cals[6] = (TextView) this.findViewById(R.id.calories6);
+        all_images[6] = (ImageView) this.findViewById(R.id.image6);
+        all_relatives[6] = (RelativeLayout) this.findViewById(R.id.relative6);
+
+        all_text[0][7] = (TextView) this.findViewById(R.id.textView28);
+        all_text[1][7] = (TextView) this.findViewById(R.id.textView29);
+        all_text[2][7] = (TextView) this.findViewById(R.id.textView30);
+        all_text[3][7] = (TextView) this.findViewById(R.id.textView31);
+        all_cals[7] = (TextView) this.findViewById(R.id.calories7);
+        all_images[7] = (ImageView) this.findViewById(R.id.image7);
+        all_relatives[7] = (RelativeLayout) this.findViewById(R.id.relative7);
+
+        all_text[0][8] = (TextView) this.findViewById(R.id.textView32);
+        all_text[1][8] = (TextView) this.findViewById(R.id.textView33);
+        all_text[2][8] = (TextView) this.findViewById(R.id.textView34);
+        all_text[3][8] = (TextView) this.findViewById(R.id.textView35);
+        all_cals[8] = (TextView) this.findViewById(R.id.calories8);
+        all_images[8] = (ImageView) this.findViewById(R.id.image8);
+        all_relatives[8] = (RelativeLayout) this.findViewById(R.id.relative8);
+
+        all_text[0][9] = (TextView) this.findViewById(R.id.textView36);
+        all_text[1][9] = (TextView) this.findViewById(R.id.textView37);
+        all_text[2][9] = (TextView) this.findViewById(R.id.textView38);
+        all_text[3][9] = (TextView) this.findViewById(R.id.textView39);
+        all_cals[9] = (TextView) this.findViewById(R.id.calories9);
+        all_images[9] = (ImageView) this.findViewById(R.id.image9);
+        all_relatives[9] = (RelativeLayout) this.findViewById(R.id.relative9);
+
         seperators[0] = (View) this.findViewById(R.id.view);
         seperators[1] = (View) this.findViewById(R.id.view1);
         seperators[2] = (View) this.findViewById(R.id.view2);
+        seperators[3] = (View) this.findViewById(R.id.view3);
+        seperators[4] = (View) this.findViewById(R.id.view4);
+        seperators[5] = (View) this.findViewById(R.id.view5);
+        seperators[6] = (View) this.findViewById(R.id.view6);
+        seperators[7] = (View) this.findViewById(R.id.view7);
+        seperators[8] = (View) this.findViewById(R.id.view8);
 
         //create url
-        String url = "https://api.edamam.com/search?q=" + query + "&app_id=f7ff52ad&app_key=732f1e9caa51e14c47e9aa639538ce33&from=0&to=4";   //needs be changed to increase num of results
+        String url = "https://api.edamam.com/search?q=" + query + "&app_id=f7ff52ad&app_key=732f1e9caa51e14c47e9aa639538ce33&from=0&to=" + String.valueOf(num_results);
         if (vegan) {
             url = url + "&health=vegan";
             health_labels.add("vegan");
@@ -203,7 +260,6 @@ public class Results extends AppCompatActivity {
                             public void onClick(View v) {
                                 Intent recipe_intent = new Intent(Results.this, Recipe.class);
                                 recipe_intent.putExtra("recipe", recipe_string);
-                                recipe_intent.putExtra("image", images[final_result]);
                                 startActivity(recipe_intent);
                             }
                         });

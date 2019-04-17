@@ -18,6 +18,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.ml.common.FirebaseMLException;
 import com.google.firebase.ml.common.modeldownload.FirebaseLocalModel;
 import com.google.firebase.ml.common.modeldownload.FirebaseModelManager;
@@ -47,6 +50,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.SortedMap;
@@ -56,6 +60,7 @@ import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 import android.graphics.Color;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     EditText other_text;
     RelativeLayout other_container;
     int selected;
-
+    
     CheckBox vegan;
     CheckBox vegetarian;
     CheckBox balanced;
@@ -84,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
     String[] top_5_name;
     FirebaseModelInterpreter firebaseInterpreter;
     FirebaseModelInputOutputOptions inputOutputOptions;
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
         take_photo = (ImageButton) findViewById(R.id.take_photo);
         photo = (ImageView) findViewById(R.id.photo);
+        photo.setImageDrawable(getResources().getDrawable(R.drawable.launch_pic));
 
         NN_results = new TextView[5];
         NN_results[0] = (TextView) findViewById(R.id.result1);
@@ -101,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         NN_results[4] = (TextView) findViewById(R.id.result5);
         other_text = (EditText) findViewById(R.id.other_text);
         other_container = (RelativeLayout) findViewById(R.id.other);
+        other_text.bringToFront();
         selected = 0;
 
         vegan = (CheckBox) findViewById(R.id.checkBox);
@@ -177,10 +185,16 @@ public class MainActivity extends AppCompatActivity {
 
         search_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (selected > top_5_name.length - 1) {
-                    launch_search(other_text.getText().toString());
+                if(top_5_name[0] == null){
+                    Toast toast = Toast.makeText(getApplicationContext(), "Make sure a search query is specified.", Toast.LENGTH_LONG);
+                    toast.show();
                 }
-                launch_search(top_5_name[selected]);
+                else {
+                    if (selected > top_5_name.length - 1) {
+                        launch_search(other_text.getText().toString());
+                    }
+                    launch_search(top_5_name[selected]);
+                }
             }
         });
     }
@@ -307,6 +321,7 @@ public class MainActivity extends AppCompatActivity {
     private void firebase_setup() {
         int input_size = 299;
 
+        database = FirebaseDatabase.getInstance();
         FirebaseLocalModel localSource =
                 new FirebaseLocalModel.Builder("food_classifier")  // Assign a name to this model
                         .setAssetFilePath("model_quantized.tflite")
@@ -392,11 +407,11 @@ public class MainActivity extends AppCompatActivity {
 
     protected void set_result_textviews() {
         DecimalFormat df = new DecimalFormat("#.##");
-        String a = "    " + top_5_name[0] + "? - " + String.valueOf(df.format(top_5_prob[0] * 100)) + "%    ";
-        String b = "    " + top_5_name[1] + "? - " + String.valueOf(df.format(top_5_prob[1] * 100)) + "%    ";
-        String c = "    " + top_5_name[2] + "? - " + String.valueOf(df.format(top_5_prob[2] * 100)) + "%    ";
-        String d = "    " + top_5_name[3] + "? - " + String.valueOf(df.format(top_5_prob[3] * 100)) + "%    ";
-        String e = "    " + top_5_name[4] + "? - " + String.valueOf(df.format(top_5_prob[4] * 100)) + "%    ";
+        String a = " " + top_5_name[0] + "? " + String.valueOf(df.format(top_5_prob[0] * 100)) + "% ";
+        String b = " " + top_5_name[1] + "? " + String.valueOf(df.format(top_5_prob[1] * 100)) + "% ";
+        String c = " " + top_5_name[2] + "? " + String.valueOf(df.format(top_5_prob[2] * 100)) + "% ";
+        String d = " " + top_5_name[3] + "? " + String.valueOf(df.format(top_5_prob[3] * 100)) + "% ";
+        String e = " " + top_5_name[4] + "? " + String.valueOf(df.format(top_5_prob[4] * 100)) + "% ";
 
         NN_results[0].setText(a);
         NN_results[1].setText(b);
@@ -408,7 +423,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void thinking_textviews() {
-        NN_results[0].setText("    thinking...    ");
+        NN_results[0].setText(" Thinking... ");
         NN_results[1].setText("");
         NN_results[2].setText("");
         NN_results[3].setText("");
@@ -418,7 +433,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void launch_search(String query) {
-        query = query.replaceAll("[^a-zA-Z]", "").toLowerCase();
+        query = query.replaceAll("[^a-zA-Z0-9\\s]", "").toLowerCase();
         Intent query_intent = new Intent(MainActivity.this, Results.class);
         query_intent.putExtra("query", query);
         query_intent.putExtra("vegan", vegan.isChecked());
@@ -430,6 +445,10 @@ public class MainActivity extends AppCompatActivity {
         query_intent.putExtra("low_fat", low_fat.isChecked());
         query_intent.putExtra("low_sugar", low_sugar.isChecked());
         startActivity(query_intent);
+
+        String time_stamp = Calendar.getInstance().getTime().toString();
+        DatabaseReference myRef = database.getReference(String.valueOf(selected) + "/" + time_stamp);
+        myRef.setValue(query);
     }
 
     protected void select_result(int result) {
@@ -437,10 +456,10 @@ public class MainActivity extends AppCompatActivity {
             NN_results[i].setBackgroundColor(Color.parseColor("#A6FFFFFF"));
         }
         if (result == 5)
-            other_container.setBackgroundColor(Color.parseColor("#A6008000"));
+            other_container.setBackgroundColor(Color.parseColor("#A681B078"));
         else {
             other_container.setBackgroundColor(Color.parseColor("#A6FFFFFF"));
-            NN_results[result].setBackgroundColor(Color.parseColor("#A6008000"));
+            NN_results[result].setBackgroundColor(Color.parseColor("#A681B078"));
         }
         selected = result;
     }

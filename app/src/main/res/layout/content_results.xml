@@ -11,7 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="5dp">
 
         <RelativeLayout
             android:id="@+id/relative0"
@@ -36,7 +37,8 @@
                 android:layout_gravity="right|center_vertical"
                 android:padding="5dp"
                 android:textSize="16sp"
-                android:background="#BFFFFFFF"/>
+                android:background="#BFFFFFFF"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/textView1"
@@ -46,7 +48,8 @@
                 android:layout_below="@+id/textView0"
                 android:layout_gravity="right|center_vertical"
 
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -55,7 +58,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/textView1"
                 android:layout_gravity="right|center_vertical"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -64,7 +68,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/textView2"
                 android:layout_gravity="right|center_vertical"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/calories0"
@@ -73,7 +78,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/textView3"
                 android:layout_gravity="right|center_vertical"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
         </RelativeLayout>
 
@@ -82,8 +88,8 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginBottom="2.5dp"
+            android:layout_marginTop="2.5dp"/>
 
         <RelativeLayout
             android:id="@+id/relative1"
@@ -108,7 +114,8 @@
                 android:layout_gravity="right|center_vertical"
                 android:padding="5dp"
                 android:textSize="16sp"
-                android:background="#BFFFFFFF"/>
+                android:background="#BFFFFFFF"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -118,7 +125,8 @@
                 android:layout_below="@+id/textView4"
                 android:layout_gravity="right|center_vertical"
 
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -127,7 +135,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/textView5"
                 android:layout_gravity="right|center_vertical"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -136,7 +145,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/textView6"
                 android:layout_gravity="right|center_vertical"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/calories1"
@@ -145,7 +155,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/textView7"
                 android:layout_gravity="right|center_vertical"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
         </RelativeLayout>
 
@@ -154,8 +165,8 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginBottom="2.5dp"
+            android:layout_marginTop="2.5dp"/>
 
         <RelativeLayout
             android:id="@+id/relative2"
@@ -180,7 +191,8 @@
                 android:layout_gravity="right|center_vertical"
                 android:padding="5dp"
                 android:textSize="16sp"
-                android:background="#BFFFFFFF"/>
+                android:background="#BFFFFFFF"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -189,7 +201,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/textView8"
                 android:layout_gravity="right|center_vertical"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -198,7 +211,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/textView9"
                 android:layout_gravity="right|center_vertical"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -207,7 +221,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/textView10"
                 android:layout_gravity="right|center_vertical"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/calories2"
@@ -216,7 +231,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/textView11"
                 android:layout_gravity="right|center_vertical"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
         </RelativeLayout>
 
@@ -225,8 +241,8 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginBottom="2.5dp"
+            android:layout_marginTop="2.5dp"/>
 
         <RelativeLayout
             android:id="@+id/relative3"
@@ -251,7 +267,8 @@
                 android:layout_gravity="right|center_vertical"
                 android:padding="5dp"
                 android:textSize="16sp"
-                android:background="#BFFFFFFF"/>
+                android:background="#BFFFFFFF"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -261,7 +278,8 @@
                 android:layout_below="@+id/textView12"
                 android:layout_gravity="right|center_vertical"
 
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -270,7 +288,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/textView13"
                 android:layout_gravity="right|center_vertical"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -279,7 +298,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/textView14"
                 android:layout_gravity="right|center_vertical"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
             <TextView
                 android:id="@+id/calories3"
@@ -288,7 +308,467 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/textView15"
                 android:layout_gravity="right|center_vertical"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="2.5dp"
+            android:layout_marginTop="2.5dp"/>
+
+        <RelativeLayout
+            android:id="@+id/relative4"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <ImageView
+                android:id="@+id/image4"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="right"
+                android:layout_weight="1"></ImageView>
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:textSize="16sp"
+                android:background="#BFFFFFFF"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView16"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView17"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView18"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/calories4"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView19"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="2.5dp"
+            android:layout_marginTop="2.5dp"/>
+
+        <RelativeLayout
+            android:id="@+id/relative5"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <ImageView
+                android:id="@+id/image5"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="right"
+                android:layout_weight="1"></ImageView>
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:textSize="16sp"
+                android:background="#BFFFFFFF"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView20"
+                android:layout_gravity="right|center_vertical"
+
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView21"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView22"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/calories5"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView23"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="2.5dp"
+            android:layout_marginTop="2.5dp"/>
+
+        <RelativeLayout
+            android:id="@+id/relative6"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <ImageView
+                android:id="@+id/image6"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="right"
+                android:layout_weight="1"></ImageView>
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:textSize="16sp"
+                android:background="#BFFFFFFF"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView24"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView25"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView26"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/calories6"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView27"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view6"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="2.5dp"
+            android:layout_marginTop="2.5dp"/>
+
+        <RelativeLayout
+            android:id="@+id/relative7"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <ImageView
+                android:id="@+id/image7"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="right"
+                android:layout_weight="1"></ImageView>
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:textSize="16sp"
+                android:background="#BFFFFFFF"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView28"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView29"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView30"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/calories7"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView31"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view7"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="2.5dp"
+            android:layout_marginTop="2.5dp"/>
+
+        <RelativeLayout
+            android:id="@+id/relative8"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <ImageView
+                android:id="@+id/image8"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="right"
+                android:layout_weight="1"></ImageView>
+
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:textSize="16sp"
+                android:background="#BFFFFFFF"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView32"
+                android:layout_gravity="right|center_vertical"
+
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView33"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView35"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView34"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/calories8"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView35"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view8"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="2.5dp"
+            android:layout_marginTop="2.5dp"/>
+
+        <RelativeLayout
+            android:id="@+id/relative9"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <ImageView
+                android:id="@+id/image9"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="right"
+                android:layout_weight="1"></ImageView>
+
+            <TextView
+                android:id="@+id/textView36"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:textSize="16sp"
+                android:background="#BFFFFFFF"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView36"
+                android:layout_gravity="right|center_vertical"
+
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView38"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView37"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/textView39"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView38"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/calories9"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/textView39"
+                android:layout_gravity="right|center_vertical"
+                android:padding="5dp"
+                android:layout_alignParentRight="true" />
 
         </RelativeLayout>
 
