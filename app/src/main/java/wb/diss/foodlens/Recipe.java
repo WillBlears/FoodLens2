@@ -1,4 +1,4 @@
-package com.example.foodlens;
+package wb.diss.foodlens;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import wb.diss.foodlens.R;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;

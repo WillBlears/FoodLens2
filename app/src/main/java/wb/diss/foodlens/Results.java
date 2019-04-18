@@ -1,4 +1,4 @@
-package com.example.foodlens;
+package wb.diss.foodlens;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import wb.diss.foodlens.R;
 
 public class Results extends AppCompatActivity {
 

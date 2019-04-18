@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.foodlens">
+    package="wb.diss.foodlens">
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -18,16 +18,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Recipe"
+            android:name="wb.diss.foodlens.Recipe"
             android:label="@string/title_activity_recipe"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".Results"
+            android:name="wb.diss.foodlens.Results"
             android:label="@string/title_activity_results"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+        <activity android:name="wb.diss.foodlens.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +38,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.android.fileprovider"
+            android:authorities="wb.diss.android.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

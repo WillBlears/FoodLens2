@@ -1,4 +1,4 @@
-package com.example.foodlens;
+package wb.diss.foodlens;
 
 import org.junit.Test;
 

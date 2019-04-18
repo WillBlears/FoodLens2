@@ -1,4 +1,4 @@
-package com.example.foodlens;
+package wb.diss.foodlens;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.foodlens", appContext.getPackageName());
+        assertEquals("wb.diss.foodlens", appContext.getPackageName());
     }
 }
