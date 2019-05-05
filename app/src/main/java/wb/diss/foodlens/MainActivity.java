@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         take_photo = (ImageButton) findViewById(R.id.take_photo);
         photo = (ImageView) findViewById(R.id.photo);
         DisplayMetrics dm = getResources().getDisplayMetrics();
-        photo.getLayoutParams().height = (int)(dm.heightPixels*0.43);
+        photo.getLayoutParams().height = (int) (dm.heightPixels * 0.43);
         photo.getLayoutParams().width = dm.widthPixels;
         photo.setImageDrawable(getResources().getDrawable(R.drawable.launch_pic));
 
@@ -109,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
         results.getLayoutParams().height = photo.getLayoutParams().height;
         other_text.bringToFront();
         selected = 0;
-        int result_bar_height = (int)(photo.getLayoutParams().height - (5*6))/6;
-        for(int i = 0; i < NN_results.length; i++)
+        int result_bar_height = (int) (photo.getLayoutParams().height - (5 * 6)) / 6;
+        for (int i = 0; i < NN_results.length; i++)
             NN_results[i].getLayoutParams().height = result_bar_height;
         other_container.getLayoutParams().height = result_bar_height;
 
@@ -188,11 +188,10 @@ public class MainActivity extends AppCompatActivity {
 
         search_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(top_5_name[0] == null){
+                if (top_5_name[0] == null) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Make sure a search query is specified.", Toast.LENGTH_LONG);
                     toast.show();
-                }
-                else {
+                } else {
                     if (selected > top_5_name.length - 1) {
                         launch_search(other_text.getText().toString());
                     }
@@ -209,7 +208,6 @@ public class MainActivity extends AppCompatActivity {
                 Bitmap bitmap = getBitmap();
                 thinking_textviews();
                 photo.setImageBitmap(resizeBitmap(bitmap));
-
                 get_top_5(bitmap);
             }
         }
@@ -327,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         FirebaseLocalModel localSource =
                 new FirebaseLocalModel.Builder("food_classifier")  // Assign a name to this model
-                        .setAssetFilePath("model_quantized.tflite")
+                        .setAssetFilePath("mobileNet.tflite")
                         .build();
         FirebaseModelManager.getInstance().registerLocalModel(localSource);
 
@@ -466,4 +464,5 @@ public class MainActivity extends AppCompatActivity {
         }
         selected = result;
     }
+
 }
